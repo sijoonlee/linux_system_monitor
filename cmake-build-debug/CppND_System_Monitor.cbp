@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="CppND_System_Monitor"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="CppND_System_Monitor">
+				<Option output="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/CppND_System_Monitor" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/."/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 CppND_System_Monitor"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="CppND_System_Monitor/fast">
+				<Option output="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/CppND_System_Monitor" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/."/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 CppND_System_Monitor/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/ProcessParser.cpp">
+			<Option target="CppND_System_Monitor"/>
+		</Unit>
+		<Unit filename="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/ProcessParser.h">
+			<Option target="CppND_System_Monitor"/>
+		</Unit>
+		<Unit filename="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/constants.h">
+			<Option target="CppND_System_Monitor"/>
+		</Unit>
+		<Unit filename="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/main.cpp">
+			<Option target="CppND_System_Monitor"/>
+		</Unit>
+		<Unit filename="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/util.cpp">
+			<Option target="CppND_System_Monitor"/>
+		</Unit>
+		<Unit filename="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/util.h">
+			<Option target="CppND_System_Monitor"/>
+		</Unit>
+		<Unit filename="/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
