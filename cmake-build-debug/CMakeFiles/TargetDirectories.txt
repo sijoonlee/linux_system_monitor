@@ -1,3 +1,0 @@
-/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/CMakeFiles/CppND_System_Monitor.dir
-/home/sijoonlee/Documents/cpp_nanodegree/CppND-System-Monitor/cmake-build-debug/CMakeFiles/edit_cache.dir
