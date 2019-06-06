@@ -108,6 +108,7 @@
 #include "ProcessParser.h"
 
 int main (){
-    std::cout << ProcessParser::getVmSize("1495");
+    std::cout << ProcessParser::getVmSize("165");
+    std::cout << ProcessParser::getCpuPercent("165");
 
 }
