@@ -127,10 +127,10 @@ long int ProcessParser::getSysUpTime() {
 
 
 string ProcessParser::getProcUser(string pid){
-    string line;
-    string name = "Uid:"; // user unique identifier
-    string result ="";
-    ifstream stream = Util::getStream((Path::basePath() + pid + Path::statusPath()));
+    std::string line;
+    std::string name = "Uid:"; // user unique identifier
+    std::string result ="";
+    std::ifstream stream = Util::getStream((Path::basePath() + pid + Path::statusPath()));
 
     // Getting UID for user
     // cat /proc/165/status
@@ -144,9 +144,9 @@ string ProcessParser::getProcUser(string pid){
                 //Syntax 2: Compares at most, len characters of string *this, starting with index idx with the string str.
                 //int string::compare (size_type idx, size_type len, const string& str) const
                 //Throws out_of_range if index > size().
-            istringstream buf(line);
-            istream_iterator<string> beg(buf), end;
-            vector<string> values(beg, end);
+            std::istringstream buf(line);
+            std::istream_iterator<string> beg(buf), end;
+            std::vector<string> values(beg, end);
             result =  values[1];
             break;
         }
@@ -169,3 +169,52 @@ string ProcessParser::getProcUser(string pid){
     return "";
 }
 
+
+// https://stackoverflow.com/questions/612097/how-can-i-get-the-list-of-files-in-a-directory-using-c-or-c
+// http://www.martinbroadhurst.com/list-the-files-in-a-directory-in-c.html
+// https://www.dreamincode.net/forums/topic/59943-accessing-directories-in-cc-part-i/
+
+// about dirent.h
+// http://www.cplusplus.com/forum/unices/16005/
+// readdir() only returns one directory entry at a time.
+// You have to keep calling readdir() until it returns 0, which indicates that there are no more entries.
+
+// https://www.gnu.org/software/libc/manual/html_node/Directory-Entries.html
+// struct dirent is declared in dirent.h
+// char d_name[] ; the null-terminated file name component.
+// unsigned char d_type
+//      DT_REG - regular file
+//      DT_DIR - directory
+//      DT_UNKNOWN - unknown type
+
+vector<string> ProcessParser::getPidList(){
+    DIR* dir;
+    // Basically, we are scanning /proc dir for all directories with numbers as their names
+    // If we get valid check we store dir names in vector as list of machine pids
+    std::vector<string> container;
+    if(!(dir = opendir("/proc")))
+        throw std::runtime_error(std::strerror(errno));
+
+    while (dirent* dirp = readdir(dir)) { // while there is still something in the directory to list
+
+        // is this a directory?
+        if(dirp->d_type != DT_DIR)
+            continue;
+
+        // Is every character of the name a digit?
+        if (all_of(dirp->d_name, dirp->d_name + std::strlen(dirp->d_name), [](char c){ return std::isdigit(c); })) {
+                // https://www.geeksforgeeks.org/stdall_of-in-cpp/
+                // all_of() is defined in <algorithm>
+                // template <class InputIterator, class UnaryPredicate>
+                // bool all_of (InputIterator first, InputIterator last, UnaryPredicate pred);
+                // first : Input iterators to the initial positions in a sequence.
+                // last : Input iterators to the final positions in a sequence.
+                // pred : An unary predicate function that accepts an element and returns a bool.
+            container.push_back(dirp->d_name);
+        }
+    }
+    //Validating process of directory closing
+    if(closedir(dir))
+        throw std::runtime_error(std::strerror(errno));
+    return container;
+}
