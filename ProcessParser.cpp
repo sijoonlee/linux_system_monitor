@@ -125,3 +125,47 @@ long int ProcessParser::getSysUpTime() {
     return std::stoi(values[0]);
 }
 
+
+string ProcessParser::getProcUser(string pid){
+    string line;
+    string name = "Uid:"; // user unique identifier
+    string result ="";
+    ifstream stream = Util::getStream((Path::basePath() + pid + Path::statusPath()));
+
+    // Getting UID for user
+    // cat /proc/165/status
+    //  Pid:	165
+    //  PPid:	2
+    //  TracerPid:	0
+    //  Uid:	0	0	0	0
+
+    while (std::getline(stream, line)) {
+        if (line.compare(0, name.size(),name) == 0) {
+                //Syntax 2: Compares at most, len characters of string *this, starting with index idx with the string str.
+                //int string::compare (size_type idx, size_type len, const string& str) const
+                //Throws out_of_range if index > size().
+            istringstream buf(line);
+            istream_iterator<string> beg(buf), end;
+            vector<string> values(beg, end);
+            result =  values[1];
+            break;
+        }
+    }
+    stream = Util::getStream("/etc/passwd");
+    name =("x:" + result);
+
+    // Searching for name of the user with selected UID
+    // cat /etc/passwd | grep -i 0
+    //  root:x:0:0:root:/root:/bin/bash
+
+    while (std::getline(stream, line)) {
+        if (line.find(name) != std::string::npos) {
+            result = line.substr(0, line.find(":"));
+                // string.find return the position of the first character of the first match.
+                // If no matches were found, the function returns string::npos.
+            return result;
+        }
+    }
+    return "";
+}
+
