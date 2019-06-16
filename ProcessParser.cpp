@@ -30,17 +30,7 @@ std::string ProcessParser::getVmSize(std::string pid){
             //                    first character that doesn't match is greater
 
             // slicing string line on ws for values using sstream
-            std::istringstream buf(line);
-            std::istream_iterator<string> start(buf), end; //
-            std::vector<string> values(start, end);
-            // for(string x: values)
-            //      std::cout << x << "\n";
-
-            // https://stackoverflow.com/questions/17427943/creating-stl-vector-from-pair-of-iterator-c
-            // The vector constructor uses an open interval so the end is not included
-
-            // line = "VmData:	     420 kB"
-            // values = ["VmData:","420","kB"]
+            std::vector<string> values = splitByWhiteSpace(line);
 
             // conversion KB -> GB
             result = std::stof(values[1])/float(1024); //
@@ -61,9 +51,7 @@ std::string ProcessParser::getCpuPercent(string pid){
 
     std::getline(stream, line);
     std::string str = line;
-    std::istringstream buf(str);
-    std::istream_iterator<string> beg(buf), end;
-    std::vector<string> values(beg, end); // done!
+    std::vector<string> values = splitByWhiteSpace(line);
 
     // acquiring relevant times for calculation of active occupation of CPU for selected process
     float utime = stof(ProcessParser::getProcUpTime(pid));
@@ -86,9 +74,7 @@ string ProcessParser::getProcUpTime(string pid) {
     std::ifstream stream = Util::getStream((Path::basePath() + pid + "/" +  Path::statPath()));
     std::getline(stream, line);
     std::string str = line;
-    std::istringstream buf(str);
-    std::istream_iterator<string> beg(buf), end;
-    std::vector<string> values(beg, end); // done!
+    std::vector<string> values = splitByWhiteSpace(line);
     // Using sysconf to get clock ticks of the host machine
     return std::to_string(float(stof(values[13])/sysconf(_SC_CLK_TCK)));
 }
@@ -97,9 +83,7 @@ long int ProcessParser::getSysUpTime() {
     std::string line;
     std::ifstream stream = Util::getStream((Path::basePath() + Path::upTimePath()));
     std::getline(stream,line);
-    std::istringstream buf(line);
-    std::istream_iterator<string> beg(buf), end;
-    std::vector<string> values(beg, end);
+    std::vector<string> values = splitByWhiteSpace(line);
     return std::stoi(values[0]);
 }
 
@@ -122,9 +106,7 @@ string ProcessParser::getProcUser(string pid){
                 //Syntax 2: Compares at most, len characters of string *this, starting with index idx with the string str.
                 //int string::compare (size_type idx, size_type len, const string& str) const
                 //Throws out_of_range if index > size().
-            std::istringstream buf(line);
-            std::istream_iterator<string> beg(buf), end;
-            std::vector<string> values(beg, end);
+            std::vector<string> values = splitByWhiteSpace(line);
             result =  values[1];
             break;
         }
@@ -202,7 +184,7 @@ string ProcessParser::getCmd(string pid){
     string line;
     ifstream stream = Util::getStream((Path::basePath() + pid + Path::cmdPath()));
     std::getline(stream, line); // just one line
-    return line;
+    return line ;
 }
 
 int ProcessParser::getNumberOfProcessors(){
@@ -242,9 +224,7 @@ vector<string> ProcessParser::getSysCpuPercent(string processorNumber){
     ifstream stream = Util::getStream((Path::basePath() + Path::statPath()));
     while (std::getline(stream, line)) {
         if (line.compare(0, name.size(),name) == 0) {
-            istringstream buf(line);
-            istream_iterator<string> beg(buf), end;
-            vector<string> values(beg, end);
+            std::vector<string> values = splitByWhiteSpace(line);
             // set of cpu data active and idle times;
             return values;
         }
@@ -320,21 +300,15 @@ float ProcessParser::getSysRamPercent()
         if (total_mem != 0 && free_mem != 0)
             break;
         if (line.compare(0, name1.size(), name1) == 0) {
-            istringstream buf(line);
-            istream_iterator<string> beg(buf), end;
-            vector<string> values(beg, end);
+            std::vector<string> values = splitByWhiteSpace(line);
             total_mem = stof(values[1]);
         }
         if (line.compare(0, name2.size(), name2) == 0) {
-            istringstream buf(line);
-            istream_iterator<string> beg(buf), end;
-            vector<string> values(beg, end);
+            std::vector<string> values = splitByWhiteSpace(line);
             free_mem = stof(values[1]);
         }
         if (line.compare(0, name3.size(), name3) == 0) {
-            istringstream buf(line);
-            istream_iterator<string> beg(buf), end;
-            vector<string> values(beg, end);
+            std::vector<string> values = splitByWhiteSpace(line);
             buffers = stof(values[1]);
         }
     }
@@ -349,9 +323,7 @@ string ProcessParser::getSysKernelVersion()
     ifstream stream = Util::getStream((Path::basePath() + Path::versionPath()));
     while (std::getline(stream, line)) {
         if (line.compare(0, name.size(),name) == 0) {
-            istringstream buf(line);
-            istream_iterator<string> beg(buf), end;
-            vector<string> values(beg, end);
+            std::vector<string> values = splitByWhiteSpace(line);
             return values[2];
         }
     }
@@ -388,9 +360,7 @@ int ProcessParser::getTotalThreads() {
         ifstream stream = Util::getStream((Path::basePath() + pid + Path::statusPath()));
         while (std::getline(stream, line)) {
             if (line.compare(0, name.size(), name) == 0) {
-                istringstream buf(line);
-                istream_iterator<string> beg(buf), end;
-                vector<string> values(beg, end);
+                std::vector<string> values = splitByWhiteSpace(line);
                 result += stoi(values[1]);
                 break;
             }
@@ -406,9 +376,7 @@ int ProcessParser::getTotalNumberOfProcesses() {
     ifstream stream = Util::getStream((Path::basePath() + Path::statPath()));
     while (std::getline(stream, line)) {
         if (line.compare(0, name.size(), name) == 0) {
-            istringstream buf(line);
-            istream_iterator<string> beg(buf), end;
-            vector<string> values(beg, end);
+            std::vector<string> values = splitByWhiteSpace(line);
             result += stoi(values[1]);
             break;
         }
@@ -423,9 +391,7 @@ int ProcessParser::getNumberOfRunningProcesses() {
     ifstream stream = Util::getStream((Path::basePath() + Path::statPath()));
     while (std::getline(stream, line)) {
         if (line.compare(0, name.size(), name) == 0) {
-            istringstream buf(line);
-            istream_iterator<string> beg(buf), end;
-            vector<string> values(beg, end);
+            std::vector<string> values = splitByWhiteSpace(line);
             result += stoi(values[1]);
             break;
         }
@@ -437,4 +403,15 @@ bool ProcessParser::isPidExisting(string pid){
     vector<string> pidList = ProcessParser::getPidList();
     return ( std::find(pidList.begin(), pidList.end(), pid) != pidList.end() );
     // std::find ; <algorithm>
+}
+
+// https://stackoverflow.com/questions/17427943/creating-stl-vector-from-pair-of-iterator-c
+// The vector constructor uses an open interval so the end is not included
+
+// line = "VmData:	     420 kB"
+// values = ["VmData:","420","kB"]
+std::vector<std::string> ProcessParser::splitByWhiteSpace(string stringToSplit){
+    istringstream buf(stringToSplit);
+    istream_iterator<string> beg(buf),end;
+    return vector<string>(beg,end);
 }

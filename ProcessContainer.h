@@ -11,5 +11,5 @@ public:
     }
     void refreshList();
     std::string printList();
-    std::vector<std::string> getList();
+    std::vector<std::vector<std::string>> getList();
 };

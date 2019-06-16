@@ -36,7 +36,7 @@ class ProcessParser{
         static std::string getProcUpTime(string pid);
         static string getProcUser(string pid);
         static int getNumberOfProcessors();
-        static vector<string> getSysCpuPercent(string coreNumber = "");
+        static vector<string> getSysCpuPercent(string processorNumber = "");
         static std::string printCpuStats(std::vector<std::string> values1, std::vector<std::string>values2);
         static float getSysRamPercent();
         static string getSysKernelVersion();
@@ -45,6 +45,6 @@ class ProcessParser{
         static int getTotalNumberOfProcesses();
         static int getNumberOfRunningProcesses();
         static bool isPidExisting(string pid);
+        static std::vector<std::string>splitByWhiteSpace(string stringToSplit);
 };
 
-// TODO: Define all of the above functions below:

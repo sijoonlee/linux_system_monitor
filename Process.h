@@ -1,6 +1,7 @@
 #pragma once
 #include "ProcessParser.h"
 #include <string>
+#include <vector>
 
 /*
 Basic class for Process representation
@@ -31,5 +32,5 @@ public:
     int getCpu() const;
     int getMem() const;
     std::string getUpTime() const;
-    std::string getProcess();
+    std::vector<std::string> getProcess();
 };

@@ -11,6 +11,11 @@
 #include "SysInfo.h"
 #include "ProcessContainer.h"
 
+// for test
+//#include "ProcessParser.h"
+//#include "Process.h"
+//void test();
+
 using namespace std;
 
 
@@ -44,23 +49,45 @@ void writeSysInfoToConsole(SysInfo sys, WINDOW* sys_win) {
     mvwprintw(sys_win,13,2,getCString(( "Up Time: " + Util::convertToTime(sys.getUpTime()))));
 
 }
-void getProcessListToConsole(ProcessContainer procs,WINDOW* win) {
-    procs.refreshList();
+void getProcessListToConsole(std::vector<std::string> process, WINDOW* win, int row){
+
     wattron(win,COLOR_PAIR(2));
-    mvwprintw(win,1,2,"PID:");
-    mvwprintw(win,1,9,"User:");
-    mvwprintw(win,1,16,"CPU[%]:");
-    mvwprintw(win,1,26,"RAM[MB]:");
-    mvwprintw(win,1,35,"Uptime:");
+    mvwprintw(win,1,2,"PID:"); // Change has been done in the following some lines.
+    mvwprintw(win,1,9,"User:"); //We just changed some values so that we get nice UI
+    mvwprintw(win,1,20,"CPU[%]:"); //For this go through the videos of ncurses library
+    mvwprintw(win,1,28,"RAM[MB]:");
+    mvwprintw(win,1,36,"Uptime:");
     mvwprintw(win,1,44,"CMD:");
     wattroff(win, COLOR_PAIR(2));
-    for(int i = 0; i < 10; i++) {
-        vector<std::string> processes = procs.getList();
-        mvwprintw(win,2 +i,2,getCString(processes[i]));
+
+    int column, positionX;
+
+    for(column =0; column < 6; column++){
+        switch(column){
+            case 0:
+                positionX = 2;
+                break;
+            case 1:
+                positionX = 9;
+                break;
+            case 2:
+                positionX = 19;
+                break;
+            case 3:
+                positionX = 28;
+                break;
+            case 4:
+                positionX = 37;
+                break;
+            default:
+                positionX = 45;
+        }
+        mvwprintw(win,2+row,positionX,getCString(process[column]));
     }
 }
-void printMain(SysInfo sys,ProcessContainer procs) {
-    initscr(); // start curses mode
+
+void printMain(SysInfo sys,ProcessContainer procs){
+    initscr();          /* Start curses mode          */
     noecho(); // not printing input values
     cbreak(); // Terminating on classic ctrl + c
     start_color(); // Enabling color change of text
@@ -69,18 +96,28 @@ void printMain(SysInfo sys,ProcessContainer procs) {
     WINDOW *sys_win = newwin(17,xMax-1,0,0);
     WINDOW *proc_win = newwin(15,xMax-1,18,0);
 
+
     init_pair(1,COLOR_BLUE,COLOR_BLACK);
     init_pair(2,COLOR_GREEN,COLOR_BLACK);
-
-    while (true) {
+    int counter = 0;
+    const int MAX_PER_PAGE = 12;
+    while(1){
         box(sys_win,0,0);
         box (proc_win,0,0);
+        procs.refreshList();
+        std::vector<std::vector<std::string>> processes = procs.getList();
         writeSysInfoToConsole(sys,sys_win);
-        getProcessListToConsole(procs,proc_win);
+        getProcessListToConsole(processes[counter], proc_win, counter%MAX_PER_PAGE);
         wrefresh(sys_win);
         wrefresh(proc_win);
         refresh();
         sleep(1);
+        if(counter >= (processes.size() -1)){
+            counter = 0;
+        }
+        else{
+            counter++;
+        }
     }
     endwin();
 }
@@ -93,6 +130,8 @@ int main( int   argc, char *argv[] )
     //std::string s = writeToConsole(sys);
     printMain(sys,procs);
     return 0;
+
+//    test();
 }
 
 
@@ -117,17 +156,18 @@ void test (){
     }
     cout << "\n";
 
-    std::cout << "ProcessParser::getVmSize(\"772\") called" << "\n";
-    std::cout << ProcessParser::getVmSize("772") << "\n";
+    std::string pid = ProcessParser::getPidList()[ProcessParser::getPidList().size()-1];
+    std::cout << "ProcessParser::getVmSize(some pid) called" << "\n";
+    std::cout << ProcessParser::getVmSize(pid) << "\n";
 
-    std::cout << "ProcessParser::getCpuPercent(\"772\") called" << "\n";
-    std::cout << ProcessParser::getCpuPercent("772") << "\n";
+    std::cout << "ProcessParser::getCpuPercent(some pid) called" << "\n";
+    std::cout << ProcessParser::getCpuPercent(pid) << "\n";
 
-    std::cout << "ProcessParser::getProcUser(\"772\") called" << "\n";
-    std::cout << ProcessParser::getProcUser("772") << "\n";
+    std::cout << "ProcessParser::getProcUser(some pid) called" << "\n";
+    std::cout << ProcessParser::getProcUser(pid) << "\n";
 
-    std::cout << "ProcessParser::getCmd(\"772\") called" << "\n";
-    std::cout << ProcessParser::getCmd("772") << "\n";
+    std::cout << "ProcessParser::getCmd(some pid) called" << "\n";
+    std::cout << ProcessParser::getCmd(pid) << "\n";
 
     std::cout << "ProcessParser::getSysCpuPercent() called" << "\n";
     for(auto elm : ProcessParser::getSysCpuPercent())
@@ -164,8 +204,8 @@ void test (){
     std::cout << "ProcessParser::getNumberOfRunningProcesses() called" << "\n";
     std::cout << ProcessParser::getNumberOfRunningProcesses() << "\n";
 
-    std::cout << "ProcessParser::isPidExisting(\"772\") called" << "\n";
-    std::cout << ProcessParser::isPidExisting("772") << "\n";
+    std::cout << "ProcessParser::isPidExisting(some pid) called" << "\n";
+    std::cout << ProcessParser::isPidExisting(pid) << "\n";
 
     std::cout << "ProcessParser::isPidExisting(\"10000000\") called" << "\n";
     std::cout << ProcessParser::isPidExisting("10000000") << "\n";
@@ -203,7 +243,7 @@ void test (){
     std::cout << "SysInfo.getUpTime() called" << "\n";
     std::cout << mySystem.getUpTime() << "\n";
 
-    Process myProcess = Process("772");
+    Process myProcess = Process(pid);
     std::cout << "myProcess.getUpTime() called" << "\n";
     std::cout << myProcess.getUpTime() << "\n";
     std::cout << "myProcess.getCmd() called" << "\n";
@@ -215,7 +255,7 @@ void test (){
     std::cout << "myProcess.getPid() called" << "\n";
     std::cout << myProcess.getPid() << "\n";
     std::cout << "myProcess.getProcess() called" << "\n";
-    std::cout << myProcess.getProcess() << "\n";
+    std::cout << myProcess.getProcess().size() << "\n";
     std::cout << "myProcess.getUser() called" << "\n";
     std::cout << myProcess.getUser() << "\n";
 
@@ -224,6 +264,7 @@ void test (){
     std::cout << "myContainer.getList() called" << "\n";
 
     for( auto elm : myContainer.getList())
-        std::cout << elm << "\n";
+        for (auto str : elm)
+            std::cout << str << "\n";
     std::cout << "\n";
 }
