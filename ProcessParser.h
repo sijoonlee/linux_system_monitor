@@ -35,7 +35,7 @@ class ProcessParser{
         static long int getSysUpTime();
         static std::string getProcUpTime(string pid);
         static string getProcUser(string pid);
-        static int getNumberOfCores();
+        static int getNumberOfProcessors();
         static vector<string> getSysCpuPercent(string coreNumber = "");
         static std::string printCpuStats(std::vector<std::string> values1, std::vector<std::string>values2);
         static float getSysRamPercent();

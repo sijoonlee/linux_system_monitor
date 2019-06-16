@@ -28,9 +28,9 @@ void writeSysInfoToConsole(SysInfo sys, WINDOW* sys_win) {
     wattron(sys_win,COLOR_PAIR(1));
     wprintw(sys_win,getCString(Util::getProgressBar(sys.getCpuPercent())));
     wattroff(sys_win,COLOR_PAIR(1));
-    mvwprintw(sys_win,5,2,getCString(( "Other cores:")));
+    mvwprintw(sys_win,5,2,getCString(( "CPU Details:")));
     wattron(sys_win,COLOR_PAIR(1));
-    std::vector<std::string> val = sys.getCoresStats();
+    std::vector<std::string> val = sys.getProcessorsStats();
     for (int i = 0; i < val.size(); i++) {
         mvwprintw(sys_win,(6+i),2,getCString(val[i]));
     }
@@ -105,8 +105,8 @@ int main( int   argc, char *argv[] )
 
 void test (){
 
-    std::cout << "ProcessParser::getNumberOfCores() called" << "\n";
-    std::cout << ProcessParser::getNumberOfCores() << "\n";
+    std::cout << "ProcessParser::getNumberOfProcessors() called" << "\n";
+    std::cout << ProcessParser::getNumberOfProcessors() << "\n";
 
     std::cout << "ProcessParser::getPidList() called" << "\n";
     int count = 1;
@@ -181,8 +181,8 @@ void test (){
     mySystem.setAttributes();
     std::cout << mySystem.getCpuPercent() << "\n";
 
-    std::cout << "SysInfo.getCoresStats() called" << "\n";
-    for ( auto elm : mySystem.getCoresStats())
+    std::cout << "SysInfo.getProcessorsStats() called" << "\n";
+    for ( auto elm : mySystem.getProcessorsStats())
         std::cout << elm << "\n";
 
     std::cout << "SysInfo.getKernelVersion() called" << "\n";

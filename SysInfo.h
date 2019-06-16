@@ -9,8 +9,8 @@ private:
     std::vector<std::string> lastCpuStats;
     std::vector<std::string> currentCpuStats;
     std::vector<std::string> coresStats;
-    std::vector<std::vector<std::string>>lastCpuCoresStats;
-    std::vector<std::vector<std::string>>currentCpuCoresStats;
+    std::vector<std::vector<std::string>>lastCpuProcessorsStats;
+    std::vector<std::vector<std::string>>currentCpuProcessorsStats;
     std::string cpuPercent;
     float memPercent;
     std::string OSname;
@@ -27,7 +27,7 @@ public:
     Initial data for individual cores is set
     System data is set
     */
-        this->getOtherCores(ProcessParser::getNumberOfCores());
+        this->getOtherCores(ProcessParser::getNumberOfProcessors());
         this->setLastCpuMeasures();
         this->setAttributes();
         this->OSname = ProcessParser::getOSName();
@@ -45,5 +45,5 @@ public:
     std::string getCpuPercent()const;
     void getOtherCores(int _size);
     void setCpuCoresStats();
-    std::vector<std::string> getCoresStats()const;
+    std::vector<std::string> getProcessorsStats()const;
 };

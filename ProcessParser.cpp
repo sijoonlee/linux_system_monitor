@@ -205,27 +205,29 @@ string ProcessParser::getCmd(string pid){
     return line;
 }
 
-int ProcessParser::getNumberOfCores(){
-    // Get the number of host cpu cores
+int ProcessParser::getNumberOfProcessors(){
+    // Get the number of host cpu processors
     // Alternative solution that works in Linux:
     //    int numCPU = sysconf(_SC_NPROCESSORS_ONLN);
     //    std::cout << numCPU ;
     string line;
-    string name = "cpu cores";
-    int numberOfCores = 0;
+    string name = "processor";
+//    string name = "cpu cores";
+    int numberOfProcessors = 0;
     ifstream stream = Util::getStream((Path::basePath() + Path::cpuInfoPath()));
     while (std::getline(stream, line)) {
         if (line.compare(0, name.size(),name) == 0) {
-            istringstream buf(line);
-            istream_iterator<string> beg(buf), end;
-            vector<string> values(beg, end);
-            numberOfCores += stoi(values[3]);
+            numberOfProcessors++;
+//            istringstream buf(line);
+//            istream_iterator<string> beg(buf), end;
+//            vector<string> values(beg, end);
+//            numberOfProcessors += stoi(values[3]);
         }
     }
-    return numberOfCores;
+    return numberOfProcessors;
 }
 
-vector<string> ProcessParser::getSysCpuPercent(string coreNumber){
+vector<string> ProcessParser::getSysCpuPercent(string processorNumber){
     // It is possible to use this method for selection of data for overall cpu or every core.
     // when nothing is passed "cpu" line is read
     // when, for example "0" is passed  -> "cpu0" -> data for first core is read
@@ -236,7 +238,7 @@ vector<string> ProcessParser::getSysCpuPercent(string coreNumber){
     //      cpu2 28170 7 5966 727135 168 0 252 0 0 0
     //      cpu3 26908 137 6458 727028 329 0 350 0 0 0
     string line;
-    string name = "cpu" + coreNumber;
+    string name = "cpu" + processorNumber;
     ifstream stream = Util::getStream((Path::basePath() + Path::statPath()));
     while (std::getline(stream, line)) {
         if (line.compare(0, name.size(),name) == 0) {
