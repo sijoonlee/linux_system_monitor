@@ -25,6 +25,9 @@ public:
     static string cmdPath(){
         return "/cmdline";
     }
+    static string cpuInfoPath(){
+        return "/cpuinfo";
+    }
     static string statusPath(){
         return "/status";
     }
